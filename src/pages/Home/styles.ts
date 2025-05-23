@@ -51,10 +51,10 @@ export const CoffeeCard = styled.div`
     margin-bottom: 2.0625rem;
   }
 
-  div {
+  footer {
     display: flex;
     gap: 0.5rem;
-    align-items: center;
+    align-items: flex-end;
     justify-content: space-between;
     width: 100%;
     flex: 1;
@@ -64,6 +64,7 @@ export const CoffeeCard = styled.div`
       font-size: 0.875;
       line-height: 1.3;
       color: ${(props) => props.theme['base-text']};
+      margin-bottom: 0;
 
       span {
         font-family: 'Baloo 2', sans-serif;
@@ -73,6 +74,12 @@ export const CoffeeCard = styled.div`
       }
     }
   }
+`
+
+export const BadgeContainer = styled.div`
+  display: flex;
+  gap: 0.25rem;
+  margin: 1rem 0;
 `
 
 export const Badge = styled.span`
@@ -90,7 +97,23 @@ export const Counter = styled.div`
   justify-content: center;
   background: ${(props) => props.theme['base-button']};
   border-radius: 6px;
-  padding: 0.5rem;
+  padding: 0.25rem 0.5rem;
+
+  input {
+    width: 2rem;
+    height: 2rem;
+    text-align: center;
+    border: none;
+    background: none;
+    color: ${(props) => props.theme['base-title']};
+    font-size: 1rem;
+    line-height: 1.3;
+    padding: 0;
+
+    &:focus {
+      outline: none;
+    }
+  }
 
   button {
     background: none;

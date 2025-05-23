@@ -1,14 +1,15 @@
 import { Hero } from './components/Hero'
 import {
   Badge,
+  BadgeContainer,
   CoffeeCard,
   CoffeeList,
   Counter,
   HomeContainer,
   ShoppingCartButton,
 } from './styles'
-import tradicional from '../../assets/tradicional.png'
 import { ShoppingCartIcon } from '@phosphor-icons/react'
+import { coffesMock } from '../../mocks/coffeesMock'
 
 export function Home() {
   return (
@@ -18,31 +19,36 @@ export function Home() {
         <h2>Nossos cafés</h2>
 
         <CoffeeList>
-          <CoffeeCard>
-            <img src={tradicional} alt="" />
+          {coffesMock.map((coffee) => (
+            <CoffeeCard key={coffee.id}>
+              <img src={coffee.image} alt="" />
 
-            <div>
-              <Badge>Tradicional</Badge>
-              <Badge>Comum</Badge>
-            </div>
+              <BadgeContainer>
+                {coffee.flags.map((flag) => (
+                  <Badge key={flag}>{flag}</Badge>
+                ))}
+              </BadgeContainer>
 
-            <h3>Expresso Tradicional</h3>
-            <p>O tradicional café feito com água quente e grãos moídos</p>
+              <h3>{coffee.name}</h3>
+              <p>{coffee.description}</p>
 
-            <div>
-              <p>
-                R$ <span>9,90</span>
-              </p>
-              <Counter>
-                <button>-</button>
-                <span>1</span>
-                <button>+</button>
-              </Counter>
-              <ShoppingCartButton>
-                <ShoppingCartIcon size={22} weight="fill" />
-              </ShoppingCartButton>
-            </div>
-          </CoffeeCard>
+              <footer>
+                <div>
+                  <p>
+                    R$ <span>{(coffee.priceInCents / 100).toFixed(2)}</span>
+                  </p>
+                </div>
+                <Counter>
+                  <button>-</button>
+                  <input type="number" />
+                  <button>+</button>
+                </Counter>
+                <ShoppingCartButton>
+                  <ShoppingCartIcon size={22} weight="fill" />
+                </ShoppingCartButton>
+              </footer>
+            </CoffeeCard>
+          ))}
         </CoffeeList>
       </div>
     </HomeContainer>
