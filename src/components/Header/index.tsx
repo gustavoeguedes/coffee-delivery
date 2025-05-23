@@ -6,6 +6,7 @@ import { CartContext } from '../../contexts/CartContext'
 
 export function Header() {
   const { cartItems } = useContext(CartContext)
+  const cartCount = cartItems.length
   return (
     <HeaderContainer>
       <img src={logo} alt="" />
@@ -14,7 +15,7 @@ export function Header() {
           <MapPinIcon size={22} weight="fill" />
           Porto Alegre, RS
         </Location>
-        <Cart cartItems={cartItems.length} to="/checkout">
+        <Cart cartItems={cartCount} to="/checkout">
           <ShoppingCartIcon size={22} weight="fill" />
         </Cart>
       </div>
