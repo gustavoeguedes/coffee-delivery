@@ -89,6 +89,7 @@ export const Badge = styled.span`
   border-radius: 9999px;
   font-size: 0.625rem;
   font-weight: 700;
+  text-transform: uppercase;
 `
 export const Counter = styled.div`
   display: flex;
