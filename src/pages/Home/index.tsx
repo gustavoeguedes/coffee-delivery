@@ -1,5 +1,12 @@
 import { Hero } from './components/Hero'
-import { Badge, CoffeeCard, CoffeeList, Counter, HomeContainer, ShoppingCartButton } from './styles'
+import {
+  Badge,
+  CoffeeCard,
+  CoffeeList,
+  Counter,
+  HomeContainer,
+  ShoppingCartButton,
+} from './styles'
 import tradicional from '../../assets/tradicional.png'
 import { ShoppingCartIcon } from '@phosphor-icons/react'
 
