@@ -9,6 +9,8 @@ import {
 
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
+import { useContext } from 'react'
+import { CartContext } from '../../../../contexts/CartContext'
 
 interface Coffee {
   id: number
@@ -29,6 +31,7 @@ const coffeeSchema = z.object({
 type coffeeData = z.infer<typeof coffeeSchema>
 
 export function Card({ coffee }: CooffeeCardProps) {
+  const { addToCart } = useContext(CartContext)
   const { register, handleSubmit, setValue, watch, reset } =
     useForm<coffeeData>({
       defaultValues: {
@@ -53,6 +56,11 @@ export function Card({ coffee }: CooffeeCardProps) {
   const onSubmit = (data: coffeeData) => {
     reset()
     console.log(data)
+    const product = {
+      ...coffee,
+      quantity: data.quantity,
+    }
+    addToCart(product)
   }
 
   return (
