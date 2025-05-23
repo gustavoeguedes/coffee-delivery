@@ -1,6 +1,11 @@
 import { createGlobalStyle } from 'styled-components'
 
 export const GlobalStyle = createGlobalStyle`
+
+    html {
+    overflow-y: scroll;
+    }
+
     * {
         margin: 0;
         padding: 0;
