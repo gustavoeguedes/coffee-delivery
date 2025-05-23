@@ -1,45 +1,43 @@
+import { Hero } from './components/Hero'
+import { Badge, CoffeeCard, CoffeeList, Counter, HomeContainer, ShoppingCartButton } from './styles'
+import tradicional from '../../assets/tradicional.png'
 import { ShoppingCartIcon } from '@phosphor-icons/react'
-import coffee from '../../assets/coffee.svg'
 
 export function Home() {
   return (
-    <section>
+    <HomeContainer>
+      <Hero />
       <div>
-        <h1>Encontre o café perfeito para qualquer hora do dia</h1>
-        <p>
-          Com o Coffee Delivery você recebe seu café onde estiver, a qualquer
-          hora
-        </p>
-        <div>
-          <div>
+        <h2>Nossos cafés</h2>
+
+        <CoffeeList>
+          <CoffeeCard>
+            <img src={tradicional} alt="" />
+
             <div>
-              <ShoppingCartIcon size={32} weight="fill" />
+              <Badge>Tradicional</Badge>
+              <Badge>Comum</Badge>
             </div>
-            <span>Compra simples e segura</span>
-          </div>
-          <div>
+
+            <h3>Expresso Tradicional</h3>
+            <p>O tradicional café feito com água quente e grãos moídos</p>
+
             <div>
-              <ShoppingCartIcon size={32} weight="fill" />
+              <p>
+                R$ <span>9,90</span>
+              </p>
+              <Counter>
+                <button>-</button>
+                <span>1</span>
+                <button>+</button>
+              </Counter>
+              <ShoppingCartButton>
+                <ShoppingCartIcon size={22} weight="fill" />
+              </ShoppingCartButton>
             </div>
-            <span>Compra simples e segura</span>
-          </div>
-          <div>
-            <div>
-              <ShoppingCartIcon size={32} weight="fill" />
-            </div>
-            <span>Compra simples e segura</span>
-          </div>
-          <div>
-            <div>
-              <ShoppingCartIcon size={32} weight="fill" />
-            </div>
-            <span>Compra simples e segura</span>
-          </div>
-        </div>
+          </CoffeeCard>
+        </CoffeeList>
       </div>
-      <div>
-        <img src={coffee} alt="" />
-      </div>
-    </section>
+    </HomeContainer>
   )
 }
