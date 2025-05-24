@@ -14,7 +14,16 @@ import { CartContext } from '../../../../contexts/CartContext'
 import { useContext } from 'react'
 
 export function CompleteOrder() {
-  const { cartItems, removeFromCart } = useContext(CartContext)
+  const { cartItems, removeFromCart, decrementQuantity, incrementQuantity } =
+    useContext(CartContext)
+  const totalItems = cartItems.reduce((acc, item) => {
+    return acc + item.priceInCents * item.quantity
+  }, 0)
+  const deliveryFee = 350 // Example delivery fee in cents
+  const total = totalItems + deliveryFee
+  const formattedDeliveryFee = (deliveryFee / 100).toFixed(2)
+  const formattedTotalItems = (totalItems / 100).toFixed(2)
+  const formattedTotal = (total / 100).toFixed(2)
 
   return (
     <CompleteOrderContainer>
@@ -29,9 +38,19 @@ export function CompleteOrder() {
                   <p>{item.name}</p>
                   <div>
                     <Counter>
-                      <button>-</button>
+                      <button
+                        onClick={() => decrementQuantity(item.id)}
+                        type="button"
+                      >
+                        -
+                      </button>
                       <input type="number" value={item.quantity} readOnly />
-                      <button>+</button>
+                      <button
+                        onClick={() => incrementQuantity(item.id)}
+                        type="button"
+                      >
+                        +
+                      </button>
                     </Counter>
                     <ButtonRemove
                       type="button"
@@ -74,15 +93,15 @@ export function CompleteOrder() {
         <TotalContainer>
           <div>
             <p>Total de itens</p>
-            <p>R$ 9,90</p>
+            <p>R$ {formattedTotalItems}</p>
           </div>
           <div>
             <p>Entrega</p>
-            <p>R$ 3,50</p>
+            <p>R$ {formattedDeliveryFee}</p>
           </div>
           <div>
             <h3>Total</h3>
-            <p>R$ 13,40</p>
+            <p>R$ {formattedTotal}</p>
           </div>
         </TotalContainer>
         <CompleteOrderButton type="submit">

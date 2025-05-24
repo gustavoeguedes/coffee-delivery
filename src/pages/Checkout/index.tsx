@@ -4,6 +4,9 @@ import { CompleteOrderForm } from './components/CompleteOrderForm'
 import { CheckoutContainer } from './styles'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useContext } from 'react'
+import { CartContext } from '../../contexts/CartContext'
+import { useNavigate } from 'react-router-dom'
 
 const formOrderSchema = z.object({
   cep: z.string().min(1, 'Campo obrigatório'),
@@ -19,6 +22,8 @@ const formOrderSchema = z.object({
 export type FormOrderData = z.infer<typeof formOrderSchema>
 
 export function Checkout() {
+  const navigate = useNavigate()
+  const { cartItems, finishOrder } = useContext(CartContext)
   const methods = useForm<FormOrderData>({
     resolver: zodResolver(formOrderSchema),
     defaultValues: {
@@ -32,10 +37,32 @@ export function Checkout() {
       uf: '',
     },
   })
+
+  function onSubmit(data: FormOrderData) {
+    console.log(data)
+    const order = {
+      id: Math.floor(Math.random() * 10000),
+      ...data,
+      products: cartItems,
+    }
+    console.log(order)
+    finishOrder(order)
+    navigate('/success')
+  }
   const { handleSubmit } = methods
+
+  if (cartItems.length === 0) {
+    return (
+      <CheckoutContainer>
+        <h2>
+          Imagine aqui uma tela bem bonita dizendo que seu carrinho está vazio
+        </h2>
+      </CheckoutContainer>
+    )
+  }
   return (
     <FormProvider {...methods}>
-      <CheckoutContainer onSubmit={handleSubmit((data) => console.log(data))}>
+      <CheckoutContainer onSubmit={handleSubmit(onSubmit)}>
         <CompleteOrderForm />
 
         <CompleteOrder />
