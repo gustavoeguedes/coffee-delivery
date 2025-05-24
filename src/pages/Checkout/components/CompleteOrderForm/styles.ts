@@ -13,7 +13,7 @@ export const CompleteOrderFormContainer = styled.div`
     font-family: 'Baloo 2', sans-serif;
   }
 
-  form {
+  section {
     display: flex;
     gap: 0.75rem;
     flex-direction: column;

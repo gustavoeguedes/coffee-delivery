@@ -13,12 +13,14 @@ import {
   InputContainer,
   InputPayment,
 } from './styles'
+import { useFormContext } from 'react-hook-form'
 
 export function CompleteOrderForm() {
+  const { register } = useFormContext()
   return (
     <CompleteOrderFormContainer>
       <h2>Complete seu pedido</h2>
-      <form>
+      <section>
         <FormContainer>
           <HeaderFormContainer>
             <span>
@@ -31,19 +33,54 @@ export function CompleteOrderForm() {
           </HeaderFormContainer>
 
           <InputContainer>
-            <Input size="fifth" type="text" placeholder="CEP" />
+            <Input
+              size="fifth"
+              type="text"
+              placeholder="CEP"
+              {...register('cep')}
+            />
           </InputContainer>
           <InputContainer>
-            <Input size="full" type="text" placeholder="Rua" />
+            <Input
+              size="full"
+              type="text"
+              placeholder="Rua"
+              {...register('street')}
+            />
           </InputContainer>
           <InputContainer>
-            <Input type="text" size="fifth" placeholder="Número" />
-            <Input size="eighty" type="text" placeholder="Complemento" />
+            <Input
+              type="text"
+              size="fifth"
+              placeholder="Número"
+              {...register('number')}
+            />
+            <Input
+              size="eighty"
+              type="text"
+              placeholder="Complemento"
+              {...register('complement')}
+            />
           </InputContainer>
           <InputContainer>
-            <Input size="third" type="text" placeholder="Bairro" />
-            <Input size="third" type="text" placeholder="Cidade" />
-            <Input size="fifth" type="text" placeholder="UF" />
+            <Input
+              size="third"
+              type="text"
+              placeholder="Bairro"
+              {...register('neighborhood')}
+            />
+            <Input
+              size="third"
+              type="text"
+              placeholder="Cidade"
+              {...register('city')}
+            />
+            <Input
+              size="fifth"
+              type="text"
+              placeholder="UF"
+              {...register('uf')}
+            />
           </InputContainer>
         </FormContainer>
         <FormContainer>
@@ -64,7 +101,7 @@ export function CompleteOrderForm() {
               <input
                 type="radio"
                 id="credit-card"
-                name="payment-method"
+                name="paymentMethod"
                 value="credit-card"
               />
               <CreditCardIcon size={16} />
@@ -74,7 +111,7 @@ export function CompleteOrderForm() {
               <input
                 type="radio"
                 id="debit-card"
-                name="payment-method"
+                name="paymentMethod"
                 value="debit-card"
               />
               <BankIcon size={16} />
@@ -84,7 +121,7 @@ export function CompleteOrderForm() {
               <input
                 type="radio"
                 id="money"
-                name="payment-method"
+                name="paymentMethod"
                 value="money"
               />
               <MoneyIcon size={16} />
@@ -92,7 +129,7 @@ export function CompleteOrderForm() {
             </InputPayment>
           </InputContainer>
         </FormContainer>
-      </form>
+      </section>
     </CompleteOrderFormContainer>
   )
 }
