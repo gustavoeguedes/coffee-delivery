@@ -1,4 +1,5 @@
 import { createContext, useState } from 'react'
+import { produce } from 'immer'
 
 export interface Product {
   id: number
@@ -13,6 +14,7 @@ export interface Product {
 interface CartContextType {
   cartItems: Product[]
   addToCart: (product: Product) => void
+  removeFromCart: (productId: number) => void
 }
 
 export const CartContext = createContext({} as CartContextType)
@@ -20,21 +22,31 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
   const [cartItems, setCartItems] = useState<Product[]>([])
 
   function addToCart(product: Product) {
-    const existingProduct = cartItems.find((item) => item.id === product.id)
-    if (existingProduct) {
-      const updatedCartItems = cartItems.map((item) =>
-        item.id === product.id
-          ? { ...item, quantity: item.quantity + product.quantity }
-          : item,
-      )
-      setCartItems(updatedCartItems)
-    }
+    setCartItems((currentCart) =>
+      produce(currentCart, (draft) => {
+        const existingProduct = draft.find((item) => item.id === product.id)
+        if (existingProduct) {
+          existingProduct.quantity += product.quantity
+        } else {
+          draft.push(product)
+        }
+      }),
+    )
+  }
 
-    setCartItems((prev) => [...prev, product])
+  function removeFromCart(productId: number) {
+    setCartItems((currentCart) =>
+      produce(currentCart, (draft) => {
+        const productIndex = draft.findIndex((item) => item.id === productId)
+        if (productIndex !== -1) {
+          draft.splice(productIndex, 1)
+        }
+      }),
+    )
   }
 
   return (
-    <CartContext.Provider value={{ cartItems, addToCart }}>
+    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart }}>
       {children}
     </CartContext.Provider>
   )
